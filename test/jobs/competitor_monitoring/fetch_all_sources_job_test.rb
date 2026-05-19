@@ -14,18 +14,34 @@ class CompetitorMonitoring::FetchAllSourcesJobTest < ActiveSupport::TestCase
     Sidekiq::Testing.fake!
     @competitor = Competitor.create!(name: "Acme")
     CompetitorMonitoring::FetchSourceJob.jobs.clear
+    CompetitorMonitoring::FetchInstagramPostsJob.jobs.clear
   end
 
   teardown { Sidekiq::Testing.disable! }
 
-  test "enqueues FetchSourceJob for each active source" do
+  test "enqueues FetchSourceJob for non-instagram active sources" do
     active = @competitor.monitoring_sources.create!(valid_source_attrs(active: true))
     @competitor.monitoring_sources.create!(valid_source_attrs(name: "Inactive", url: "https://b.com", active: false))
 
     CompetitorMonitoring::FetchAllSourcesJob.new.perform
 
     enqueued_ids = CompetitorMonitoring::FetchSourceJob.jobs.map { |j| j["args"].first }
-    assert_includes     enqueued_ids, active.id
-    assert_equal        1, enqueued_ids.size
+    assert_includes enqueued_ids, active.id
+    assert_equal 1, enqueued_ids.size
+    assert_equal 0, CompetitorMonitoring::FetchInstagramPostsJob.jobs.size
+  end
+
+  test "enqueues FetchInstagramPostsJob for instagram sources" do
+    ig_source = @competitor.monitoring_sources.create!(valid_source_attrs(
+      url: "https://www.instagram.com/acme/",
+      source_type: :instagram,
+      fetch_strategy: :browser
+    ))
+
+    CompetitorMonitoring::FetchAllSourcesJob.new.perform
+
+    enqueued_ids = CompetitorMonitoring::FetchInstagramPostsJob.jobs.map { |j| j["args"].first }
+    assert_includes enqueued_ids, ig_source.id
+    assert_equal 0, CompetitorMonitoring::FetchSourceJob.jobs.size
   end
 end

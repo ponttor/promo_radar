@@ -39,6 +39,12 @@ export default function Index({ competitor, monitoring_sources }) {
             href={`/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources/${s.id}/source_snapshots`}>
             {t('monitoringSources.snapshots')}
           </Button>
+          {s.source_type === 'instagram' && (
+            <Button size="xs" variant="light" color="grape" component="a"
+              href={`/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources/${s.id}/instagram_posts`}>
+              {t('monitoringSources.posts')}
+            </Button>
+          )}
         </Group>
       </Table.Td>
     </Table.Tr>

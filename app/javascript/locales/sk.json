@@ -22,7 +22,13 @@
     "changed": "Zmenený",
     "visibleText": "Viditeľný text",
     "metadata": "Metadáta",
-    "errorMessage": "Chyba"
+    "errorMessage": "Chyba",
+    "postedAt": "Dátum",
+    "likes": "Lajky",
+    "comments": "Komentáre",
+    "postType": "Typ",
+    "link": "Link",
+    "caption": "Popis"
   },
   "status": {
     "active": "Aktívny",
@@ -55,11 +61,19 @@
     "fetchStrategy": "Stratégia načítania",
     "extractorType": "Extraktor",
     "checkFrequency": "Frekvencia kontroly",
-    "snapshots": "Snímky"
+    "snapshots": "Snímky",
+    "posts": "Príspevky"
   },
   "sourceSnapshots": {
     "title": "Snímky: {{name}}",
     "empty": "Zatiaľ žiadne snímky.",
     "backToSources": "← Zdroje"
+  },
+  "instagramPosts": {
+    "title": "Príspevky: {{name}}",
+    "empty": "Zatiaľ žiadne príspevky.",
+    "backToSources": "← Zdroje",
+    "sessionActive": "Relácia aktívna",
+    "sessionExpired": "Relácia vypršala — spustite setup task znovu"
   }
 }

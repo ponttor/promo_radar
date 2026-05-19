@@ -156,6 +156,10 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2026.0414)
     mini_mime (1.1.5)
     minitest (5.27.0)
     msgpack (1.8.0)
@@ -199,6 +203,10 @@ GEM
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
+    playwright-ruby-client (1.60.0)
+      base64
+      concurrent-ruby (>= 1.1.6)
+      mime-types (>= 3.0)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -386,6 +394,7 @@ DEPENDENCIES
   jbuilder
   nokogiri
   pg (~> 1.1)
+  playwright-ruby-client
   puma (>= 5.0)
   rails (~> 7.2.3, >= 7.2.3.1)
   rubocop-rails-omakase

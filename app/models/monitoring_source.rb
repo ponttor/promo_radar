@@ -1,12 +1,16 @@
 class MonitoringSource < ApplicationRecord
   belongs_to :competitor
+  has_many :source_snapshots, dependent: :destroy
+  has_many :instagram_posts, dependent: :destroy
 
   enum :source_type, {
     website: "website",
     landing_page: "landing_page",
-    telegram: "telegram",
-    email_archive: "email_archive",
-    app_store: "app_store"
+    app_store: "app_store",
+    instagram: "instagram",
+    facebook: "facebook",
+    twitter: "twitter",
+    youtube: "youtube"
   }
 
   enum :fetch_strategy, {
@@ -33,4 +37,5 @@ class MonitoringSource < ApplicationRecord
   }
 
   scope :active, -> { where(active: true) }
+  scope :instagram, -> { where(source_type: "instagram") }
 end

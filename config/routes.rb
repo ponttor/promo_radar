@@ -21,6 +21,11 @@ Rails.application.routes.draw do
       resources :competitors do
         resources :monitoring_sources do
           resources :source_snapshots, only: [:index, :show]
+          resources :instagram_posts,  only: [:index] do
+              collection do
+                post :fetch
+              end
+            end
         end
       end
     end

@@ -22,7 +22,13 @@
     "changed": "Changed",
     "visibleText": "Visible text",
     "metadata": "Metadata",
-    "errorMessage": "Error"
+    "errorMessage": "Error",
+    "postedAt": "Posted at",
+    "likes": "Likes",
+    "comments": "Comments",
+    "postType": "Type",
+    "link": "Link",
+    "caption": "Caption"
   },
   "status": {
     "active": "Active",
@@ -55,11 +61,19 @@
     "fetchStrategy": "Fetch strategy",
     "extractorType": "Extractor",
     "checkFrequency": "Check frequency",
-    "snapshots": "Snapshots"
+    "snapshots": "Snapshots",
+    "posts": "Posts"
   },
   "sourceSnapshots": {
     "title": "Snapshots: {{name}}",
     "empty": "No snapshots yet.",
     "backToSources": "← Sources"
+  },
+  "instagramPosts": {
+    "title": "Posts: {{name}}",
+    "empty": "No posts yet.",
+    "backToSources": "← Sources",
+    "sessionActive": "Session active",
+    "sessionExpired": "Session expired — re-run setup task"
   }
 }
