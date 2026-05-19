@@ -62,3 +62,6 @@ group :test do
 end
 
 gem "vite_rails", "~> 3.11"
+gem "sidekiq", "~> 7.0"
+gem "sidekiq-cron", "~> 1.12"
+gem "connection_pool", "~> 2.4"

@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "competitors": "Konkurenti",
+    "backToCompetitors": "← Konkurenti"
+  },
+  "common": {
+    "name": "Názov",
+    "url": "URL",
+    "industry": "Odvetvie",
+    "country": "Krajina",
+    "notes": "Poznámky",
+    "status": "Stav",
+    "actions": "Akcie",
+    "type": "Typ",
+    "strategy": "Stratégia",
+    "lastChecked": "Skontrolovaný",
+    "active": "Aktívny",
+    "sourcesCount": "Zdroje"
+  },
+  "status": {
+    "active": "Aktívny",
+    "inactive": "Neaktívny"
+  },
+  "actions": {
+    "save": "Uložiť",
+    "cancel": "Zrušiť",
+    "edit": "Upraviť",
+    "activate": "Aktiv.",
+    "deactivate": "Deakt."
+  },
+  "competitors": {
+    "title": "Konkurenti",
+    "new": "Pridať konkurenta",
+    "edit": "Upraviť: {{name}}",
+    "empty": "Žiadni konkurenti. Pridajte prvého.",
+    "add": "+ Pridať konkurenta",
+    "sources": "Zdroje"
+  },
+  "monitoringSources": {
+    "title": "Zdroje: {{name}}",
+    "new": "Pridať zdroj — {{name}}",
+    "edit": "Upraviť zdroj — {{name}}",
+    "empty": "Žiadne zdroje. Pridajte prvý.",
+    "add": "+ Pridať zdroj",
+    "sourceType": "Typ zdroja",
+    "fetchStrategy": "Stratégia načítania",
+    "extractorType": "Extraktor",
+    "checkFrequency": "Frekvencia kontroly"
+  }
+}

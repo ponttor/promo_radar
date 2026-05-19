@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "competitors": "Competitors",
+    "backToCompetitors": "← Competitors"
+  },
+  "common": {
+    "name": "Name",
+    "url": "URL",
+    "industry": "Industry",
+    "country": "Country",
+    "notes": "Notes",
+    "status": "Status",
+    "actions": "Actions",
+    "type": "Type",
+    "strategy": "Strategy",
+    "lastChecked": "Last checked",
+    "active": "Active",
+    "sourcesCount": "Sources"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "activate": "Activ.",
+    "deactivate": "Deact."
+  },
+  "competitors": {
+    "title": "Competitors",
+    "new": "Add competitor",
+    "edit": "Edit: {{name}}",
+    "empty": "No competitors. Add the first one.",
+    "add": "+ Add competitor",
+    "sources": "Sources"
+  },
+  "monitoringSources": {
+    "title": "Sources: {{name}}",
+    "new": "Add source — {{name}}",
+    "edit": "Edit source — {{name}}",
+    "empty": "No sources. Add the first one.",
+    "add": "+ Add source",
+    "sourceType": "Source type",
+    "fetchStrategy": "Fetch strategy",
+    "extractorType": "Extractor",
+    "checkFrequency": "Check frequency"
+  }
+}

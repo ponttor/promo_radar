@@ -2,12 +2,18 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
     "vite": "^8.0.13",
     "vite-plugin-ruby": "^5.2.2"
   },
   "dependencies": {
     "@inertiajs/react": "^3.1.1",
     "@mantine/core": "^9.2.1",
-    "@mantine/hooks": "^9.2.1"
+    "@mantine/hooks": "^9.2.1",
+    "i18next": "^26.2.0",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-i18next": "^17.0.8"
   }
 }
