@@ -4,6 +4,8 @@ module CompetitorMonitoring
   class PlaywrightInstagramScraper
     USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
+    POST_SELECTOR = 'a[href*="/p/"], a[href*="/reel/"]'
+
     def fetch_posts(url:, session_json:)
       posts = []
 
@@ -14,11 +16,18 @@ module CompetitorMonitoring
             userAgent: USER_AGENT
           )
           page = context.new_page
-          page.goto(url, waitUntil: "networkidle")
+          page.goto(url, waitUntil: "load")
 
           if page.url.include?("/accounts/")
             context.close
             raise CompetitorMonitoring::FetchInstagramPosts::SessionExpiredError
+          end
+
+          # Wait for posts grid to render (Instagram defers JS rendering after load)
+          begin
+            page.wait_for_selector(POST_SELECTOR, timeout: 10_000)
+          rescue Playwright::TimeoutError
+            Rails.logger.warn "[PlaywrightScraper] No post links appeared after 10s on #{page.url}"
           end
 
           links = collect_post_links(page)
@@ -34,11 +43,11 @@ module CompetitorMonitoring
 
     def collect_post_links(page)
       seen = Set.new
-      prev = 0
+      prev = -1
 
       15.times do
         links = page.eval_on_selector_all(
-          'a[href*="/p/"], a[href*="/reel/"]',
+          POST_SELECTOR,
           'els => [...new Set(els.map(el => el.href))]'
         )
         seen.merge(links)
