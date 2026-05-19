@@ -15,16 +15,25 @@
     "strategy": "Strategy",
     "lastChecked": "Last checked",
     "active": "Active",
-    "sourcesCount": "Sources"
+    "sourcesCount": "Sources",
+    "fetchedAt": "Fetched at",
+    "httpStatus": "HTTP",
+    "contentHash": "Hash",
+    "changed": "Changed",
+    "visibleText": "Visible text",
+    "metadata": "Metadata",
+    "errorMessage": "Error"
   },
   "status": {
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "blocked": "Blocked"
   },
   "actions": {
     "save": "Save",
     "cancel": "Cancel",
     "edit": "Edit",
+    "view": "View",
     "activate": "Activ.",
     "deactivate": "Deact."
   },
@@ -45,6 +54,12 @@
     "sourceType": "Source type",
     "fetchStrategy": "Fetch strategy",
     "extractorType": "Extractor",
-    "checkFrequency": "Check frequency"
+    "checkFrequency": "Check frequency",
+    "snapshots": "Snapshots"
+  },
+  "sourceSnapshots": {
+    "title": "Snapshots: {{name}}",
+    "empty": "No snapshots yet.",
+    "backToSources": "← Sources"
   }
 }

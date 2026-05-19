@@ -30,10 +30,16 @@ export default function Index({ competitor, monitoring_sources }) {
         <Text size="sm" c="dimmed">{formatDate(s.last_checked_at, i18n.resolvedLanguage)}</Text>
       </Table.Td>
       <Table.Td>
-        <Button size="xs" variant="light" component="a"
-          href={`/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources/${s.id}/edit`}>
-          {t('actions.edit')}
-        </Button>
+        <Group gap="xs">
+          <Button size="xs" variant="light" component="a"
+            href={`/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources/${s.id}/edit`}>
+            {t('actions.edit')}
+          </Button>
+          <Button size="xs" variant="light" component="a"
+            href={`/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources/${s.id}/source_snapshots`}>
+            {t('monitoringSources.snapshots')}
+          </Button>
+        </Group>
       </Table.Td>
     </Table.Tr>
   ))

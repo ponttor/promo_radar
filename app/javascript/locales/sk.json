@@ -15,16 +15,25 @@
     "strategy": "Stratégia",
     "lastChecked": "Skontrolovaný",
     "active": "Aktívny",
-    "sourcesCount": "Zdroje"
+    "sourcesCount": "Zdroje",
+    "fetchedAt": "Načítané",
+    "httpStatus": "HTTP",
+    "contentHash": "Hash",
+    "changed": "Zmenený",
+    "visibleText": "Viditeľný text",
+    "metadata": "Metadáta",
+    "errorMessage": "Chyba"
   },
   "status": {
     "active": "Aktívny",
-    "inactive": "Neaktívny"
+    "inactive": "Neaktívny",
+    "blocked": "Blokovaný"
   },
   "actions": {
     "save": "Uložiť",
     "cancel": "Zrušiť",
     "edit": "Upraviť",
+    "view": "Zobraziť",
     "activate": "Aktiv.",
     "deactivate": "Deakt."
   },
@@ -45,6 +54,12 @@
     "sourceType": "Typ zdroja",
     "fetchStrategy": "Stratégia načítania",
     "extractorType": "Extraktor",
-    "checkFrequency": "Frekvencia kontroly"
+    "checkFrequency": "Frekvencia kontroly",
+    "snapshots": "Snímky"
+  },
+  "sourceSnapshots": {
+    "title": "Snímky: {{name}}",
+    "empty": "Zatiaľ žiadne snímky.",
+    "backToSources": "← Zdroje"
   }
 }

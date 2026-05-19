@@ -56,8 +56,9 @@ class MonitoringSourceTest < ActiveSupport::TestCase
   end
 
   test "source_type enum has expected values" do
-    assert_includes MonitoringSource.source_types.keys, "website"
-    assert_includes MonitoringSource.source_types.keys, "telegram"
+    %w[website landing_page app_store instagram facebook twitter youtube].each do |t|
+      assert_includes MonitoringSource.source_types.keys, t
+    end
   end
 
   test "fetch_strategy enum has expected values" do
