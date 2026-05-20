@@ -13,13 +13,15 @@ module CompetitorMonitoring
     end
 
     def call
-      events  = fetch_events
-      grouped = events.group_by { |e| e.promotion.competitor }
+      events          = fetch_events
+      instagram_posts = fetch_instagram_posts
+      grouped         = events.group_by { |e| e.promotion.competitor }
+      ig_grouped      = instagram_posts.group_by { |p| p.monitoring_source.competitor }
 
-      ai_summary, ai_calls = generate_ai_summary(events)
-      ai_summary_skipped   = events.any? && ai_summary.nil?
+      ai_summary, ai_calls = generate_ai_summary(events, instagram_posts)
+      ai_summary_skipped   = (events.any? || instagram_posts.any?) && ai_summary.nil?
 
-      structural_markdown = build_markdown(grouped)
+      structural_markdown = build_markdown(grouped, ig_grouped)
       full_markdown = if ai_summary.present?
         "## AI Summary\n\n#{ai_summary}\n\n#{structural_markdown}"
       else
@@ -50,12 +52,20 @@ module CompetitorMonitoring
 
     private
 
-    def generate_ai_summary(events)
-      return [ nil, 0 ] if events.empty?
+    def generate_ai_summary(events, instagram_posts)
+      return [ nil, 0 ] if events.empty? && instagram_posts.empty?
 
-      input = events.map do |e|
+      lines = events.map do |e|
         "#{e.event_type.upcase}: #{e.promotion.canonical_title} (#{e.promotion.competitor.name})"
-      end.join("\n")
+      end
+
+      instagram_posts.each do |p|
+        name    = p.monitoring_source.competitor.name
+        preview = p.caption.to_s.truncate(200).presence || "(no caption)"
+        lines << "INSTAGRAM (#{name}): #{preview}"
+      end
+
+      input = lines.join("\n")
 
       result = ReportSummaryAgent.call(input: input)
       Rails.logger.debug "[AI] #{result.provider}/#{result.model} | input=#{input.length}chars | tokens=#{result.usage&.dig(:total_tokens)}"
@@ -75,6 +85,16 @@ module CompetitorMonitoring
       scope.order("promotions.competitor_id ASC, promotion_events.created_at ASC")
     end
 
+    def fetch_instagram_posts
+      scope = InstagramPost
+        .joins(monitoring_source: :competitor)
+        .includes(monitoring_source: :competitor)
+        .where(posted_at: @date_range)
+
+      scope = scope.where(monitoring_sources: { competitor_id: @competitor_ids }) if @competitor_ids.present?
+      scope.order("competitors.id ASC, instagram_posts.posted_at ASC")
+    end
+
     def build_scope_json(ai_summary:, ai_summary_skipped:, ai_calls_count:)
       hash = {
         "competitor_ids"  => @competitor_ids,
@@ -87,13 +107,23 @@ module CompetitorMonitoring
       hash
     end
 
-    def build_markdown(grouped)
-      date_label = @date_range.end.strftime("%d.%m.%Y")
+    def build_markdown(grouped, ig_grouped)
+      date_label   = @date_range.end.strftime("%d.%m.%Y")
+      all_competitors = (grouped.keys + ig_grouped.keys).uniq.sort_by(&:name)
       lines = [ "# Správa za #{date_label}", "" ]
 
-      grouped.each do |competitor, events|
+      all_competitors.each do |competitor|
         lines << "## #{competitor.name}"
-        events.each { |e| lines << format_event_line(e) }
+
+        (grouped[competitor] || []).each { |e| lines << format_event_line(e) }
+
+        posts = ig_grouped[competitor] || []
+        if posts.any?
+          lines << ""
+          lines << "### Instagram"
+          posts.each { |p| lines << format_instagram_line(p) }
+        end
+
         lines << ""
       end
 
@@ -120,6 +150,14 @@ module CompetitorMonitoring
       else
         "- #{title}"
       end
+    end
+
+    def format_instagram_line(post)
+      date    = post.posted_at ? post.posted_at.strftime("%d.%m.") : "?"
+      caption = post.caption.to_s.truncate(120).presence || "(no caption)"
+      stats   = "#{post.likes_count} ❤️  #{post.comments_count} 💬"
+      link    = post.permalink.present? ? " — [link](#{post.permalink})" : ""
+      "- 📸 #{date}: #{caption} (#{stats})#{link}"
     end
 
     def render_html(markdown)
