@@ -50,6 +50,12 @@ export default function AdminLayout({ children, title }) {
               href="/admin/competitor_monitoring/promotions"
               active={url.startsWith('/admin/competitor_monitoring/promotions')}
             />
+            <NavLink
+              label={t('nav.reports')}
+              component={Link}
+              href="/admin/competitor_monitoring/reports"
+              active={url.startsWith('/admin/competitor_monitoring/reports')}
+            />
           </div>
 
           <Stack gap="xs">

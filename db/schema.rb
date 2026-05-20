@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_20_094446) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_20_133801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -135,6 +135,29 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_20_094446) do
     t.index ["current_version_id"], name: "index_promotions_on_current_version_id"
   end
 
+  create_table "report_items", force: :cascade do |t|
+    t.bigint "report_id", null: false
+    t.bigint "promotion_event_id", null: false
+    t.integer "sort_order", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["promotion_event_id"], name: "index_report_items_on_promotion_event_id"
+    t.index ["report_id", "sort_order"], name: "index_report_items_on_report_id_and_sort_order"
+    t.index ["report_id"], name: "index_report_items_on_report_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "report_type", null: false
+    t.jsonb "scope_json", default: {}
+    t.text "summary_markdown"
+    t.text "summary_html"
+    t.datetime "generated_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["generated_at"], name: "index_reports_on_generated_at"
+    t.index ["report_type"], name: "index_reports_on_report_type"
+  end
+
   create_table "source_snapshots", force: :cascade do |t|
     t.bigint "monitoring_source_id", null: false
     t.datetime "fetched_at", null: false
@@ -165,5 +188,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_20_094446) do
   add_foreign_key "promotion_versions", "source_snapshots"
   add_foreign_key "promotions", "competitors"
   add_foreign_key "promotions", "promotion_versions", column: "current_version_id"
+  add_foreign_key "report_items", "promotion_events"
+  add_foreign_key "report_items", "reports"
   add_foreign_key "source_snapshots", "monitoring_sources"
 end

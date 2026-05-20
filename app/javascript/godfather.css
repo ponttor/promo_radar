@@ -15,6 +15,7 @@
 body {
   background: var(--gf-bg) !important;
   font-family: 'EB Garamond', Georgia, serif !important;
+  font-size: 18px !important;
 }
 
 /* Sidebar */
@@ -33,7 +34,7 @@ body {
   border-radius: 2px !important;
   color: var(--gf-text-dim) !important;
   font-family: 'EB Garamond', Georgia, serif !important;
-  font-size: 15px !important;
+  font-size: 17px !important;
   letter-spacing: 0.04em !important;
 }
 
@@ -60,11 +61,16 @@ body {
 .mantine-Table-th {
   color: var(--gf-text-dim) !important;
   font-family: 'Cinzel', serif !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
   border-bottom: 1px solid var(--gf-border) !important;
+}
+
+.mantine-Table-td {
+  font-family: 'EB Garamond', Georgia, serif !important;
+  font-size: 17px !important;
 }
 
 /* Primary buttons */
@@ -72,7 +78,7 @@ body {
   background: var(--gf-gold) !important;
   color: #0B0910 !important;
   font-family: 'Cinzel', serif !important;
-  font-size: 11px !important;
+  font-size: 13px !important;
   letter-spacing: 0.06em !important;
   font-weight: 600 !important;
 }
@@ -96,7 +102,7 @@ body {
 /* Badges */
 .mantine-Badge-root {
   font-family: 'Cinzel', serif !important;
-  font-size: 9px !important;
+  font-size: 11px !important;
   letter-spacing: 0.1em !important;
 }
 
@@ -113,7 +119,7 @@ body {
 .mantine-Select-label {
   color: var(--gf-text-dim) !important;
   font-family: 'Cinzel', serif !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   letter-spacing: 0.06em !important;
 }
 
@@ -131,6 +137,15 @@ a.mantine-Anchor-root {
 /* Text */
 .mantine-Text-root {
   color: var(--gf-text) !important;
+  font-size: 17px !important;
+}
+
+.mantine-Text-root[data-size="xs"] {
+  font-size: 14px !important;
+}
+
+.mantine-Text-root[data-size="sm"] {
+  font-size: 16px !important;
 }
 
 /* Titles */
@@ -142,4 +157,44 @@ h1, h2, h3, h4, h5 {
 .mantine-Paper-root {
   background: var(--gf-surface) !important;
   border-color: var(--gf-border) !important;
+}
+
+/* Report HTML content */
+.report-html h1 {
+  font-family: 'Cinzel', serif !important;
+  font-size: 20px !important;
+  color: var(--gf-gold) !important;
+  letter-spacing: 0.06em !important;
+  border-bottom: 1px solid var(--gf-border) !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 16px !important;
+}
+
+.report-html h2 {
+  font-family: 'Cinzel', serif !important;
+  font-size: 14px !important;
+  color: var(--gf-text-dim) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-top: 20px !important;
+  margin-bottom: 8px !important;
+}
+
+.report-html ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.report-html li {
+  font-family: 'EB Garamond', Georgia, serif !important;
+  font-size: 18px !important;
+  color: var(--gf-text) !important;
+  padding: 4px 0 !important;
+  line-height: 1.6 !important;
+}
+
+.report-html strong {
+  color: var(--gf-gold) !important;
+  font-weight: 600 !important;
 }

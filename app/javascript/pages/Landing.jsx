@@ -5,10 +5,11 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
   return (
     <Box
       style={{
-        minHeight: '100vh',
+        height: '100vh',
         display: 'flex',
         flexDirection: 'row',
         background: '#080610',
+        overflow: 'hidden',
       }}
     >
       {/* Left: Don portrait */}
@@ -33,7 +34,6 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
             display: 'block',
           }}
         />
-        {/* fade right edge into dark panel */}
         <Box
           style={{
             position: 'absolute',
@@ -41,7 +41,6 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
             background: 'linear-gradient(to right, rgba(5,3,10,0.10) 40%, rgba(8,6,16,1) 100%)',
           }}
         />
-        {/* subtle bottom vignette */}
         <Box
           style={{
             position: 'absolute',
@@ -58,8 +57,9 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '60px 64px',
-          gap: 36,
+          alignItems: 'flex-start',
+          padding: '0 80px',
+          gap: 48,
         }}
       >
         {/* Title block */}
@@ -67,11 +67,11 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
           <Text
             style={{
               fontFamily: '"Cinzel", serif',
-              fontSize: 10,
+              fontSize: 14,
               letterSpacing: '0.3em',
               color: '#5A4E3A',
               textTransform: 'uppercase',
-              marginBottom: 10,
+              marginBottom: 14,
             }}
           >
             Il Consiglio Privato
@@ -79,12 +79,12 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
           <Text
             style={{
               fontFamily: '"Cinzel", serif',
-              fontSize: 48,
+              fontSize: 88,
               fontWeight: 700,
               color: '#C9A84C',
               letterSpacing: '0.08em',
               lineHeight: 1,
-              textShadow: '0 2px 32px rgba(201,168,76,0.20)',
+              textShadow: '0 2px 48px rgba(201,168,76,0.25)',
             }}
           >
             CONSIGLIERE
@@ -93,9 +93,9 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
             style={{
               fontFamily: '"EB Garamond", Georgia, serif',
               fontStyle: 'italic',
-              fontSize: 17,
+              fontSize: 26,
               color: '#5A4E3A',
-              marginTop: 8,
+              marginTop: 14,
               letterSpacing: '0.03em',
             }}
           >
@@ -104,15 +104,14 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
         </Box>
 
         {/* Divider */}
-        <Box style={{ height: 1, background: 'rgba(201,168,76,0.15)', maxWidth: 320 }} />
+        <Box style={{ height: 1, background: 'rgba(201,168,76,0.15)', width: '100%', maxWidth: 480 }} />
 
         {/* Operative report */}
-        <Box style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
-          {/* Avatar */}
+        <Box style={{ display: 'flex', gap: 28, alignItems: 'flex-start' }}>
           <Box
             style={{
-              width: 72,
-              height: 88,
+              width: 110,
+              height: 134,
               flexShrink: 0,
               overflow: 'hidden',
               border: '1px solid rgba(201,168,76,0.25)',
@@ -133,16 +132,15 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
             />
           </Box>
 
-          {/* Report text */}
           <Box style={{ flex: 1 }}>
             <Text
               style={{
                 fontFamily: '"Cinzel", serif',
-                fontSize: 9,
+                fontSize: 13,
                 letterSpacing: '0.25em',
                 color: '#5A4E3A',
                 textTransform: 'uppercase',
-                marginBottom: 10,
+                marginBottom: 14,
               }}
             >
               Hlásenie agenta
@@ -150,7 +148,7 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
             <Text
               style={{
                 fontFamily: '"EB Garamond", Georgia, serif',
-                fontSize: 17,
+                fontSize: 26,
                 lineHeight: 1.75,
                 color: '#DDD0B8',
               }}
@@ -166,34 +164,34 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
           style={{
             fontFamily: '"EB Garamond", Georgia, serif',
             fontStyle: 'italic',
-            fontSize: 15,
+            fontSize: 22,
             color: '#5A4E3A',
             lineHeight: 1.7,
             borderLeft: '2px solid rgba(201,168,76,0.20)',
-            paddingLeft: 16,
-            maxWidth: 380,
+            paddingLeft: 24,
+            maxWidth: 560,
           }}
         >
           „Nechaj pištoľ. Vezmi cannoli."
           <br />
-          <span style={{ fontSize: 13 }}>— a správy.</span>
+          <span style={{ fontSize: 18 }}>— a správy.</span>
         </Text>
 
         {/* CTA */}
         <Link
           href="/admin/competitor_monitoring/competitors"
-          style={{ textDecoration: 'none', display: 'inline-block', alignSelf: 'flex-start' }}
+          style={{ textDecoration: 'none', display: 'inline-block' }}
         >
           <Box
             style={{
               background: '#C9A84C',
               color: '#0B0910',
               fontFamily: '"Cinzel", serif',
-              fontSize: 11,
+              fontSize: 16,
               fontWeight: 700,
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              padding: '13px 32px',
+              padding: '18px 48px',
               cursor: 'pointer',
               transition: 'background 0.15s',
             }}
@@ -208,12 +206,10 @@ export default function Landing({ godFatherImageUrl, taxiDriverImageUrl }) {
         <Text
           style={{
             fontFamily: '"Cinzel", serif',
-            fontSize: 9,
+            fontSize: 13,
             letterSpacing: '0.3em',
             color: '#2A2018',
             textTransform: 'uppercase',
-            marginTop: 'auto',
-            paddingTop: 20,
           }}
         >
           Omertà · Lealtà · Rispetto

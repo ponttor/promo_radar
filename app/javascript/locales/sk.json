@@ -2,7 +2,8 @@
   "nav": {
     "competitors": "Konkurenti",
     "backToCompetitors": "← Konkurenti",
-    "promotions": "Akcie"
+    "promotions": "Akcie",
+    "reports": "Správy"
   },
   "common": {
     "name": "Názov",
@@ -102,5 +103,24 @@
     "changedFields": "Zmenené polia",
     "from": "Z",
     "to": "Na"
+  },
+  "reports": {
+    "title": "Správy",
+    "empty": "Žiadne správy. Spustite denný job alebo generujte manuálne.",
+    "type": "Typ",
+    "generatedAt": "Vygenerované",
+    "eventsCount": "Udalosti",
+    "generateManual": "Generovať manuálne",
+    "from": "Od",
+    "to": "Do",
+    "generate": "Generovať",
+    "backToReports": "← Správy",
+    "eventsTable": "Pokryté udalosti",
+    "competitor": "Rodina",
+    "promotion": "Akcia",
+    "eventType": "Typ udalosti",
+    "daily": "Denná",
+    "weekly": "Týždenná",
+    "manual": "Manuálna"
   }
 }

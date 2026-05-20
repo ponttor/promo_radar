@@ -2,7 +2,8 @@
   "nav": {
     "competitors": "Families",
     "backToCompetitors": "← Families",
-    "promotions": "Intelligence"
+    "promotions": "Intelligence",
+    "reports": "Reports"
   },
   "common": {
     "name": "Name",
@@ -102,5 +103,24 @@
     "changedFields": "Changed fields",
     "from": "From",
     "to": "To"
+  },
+  "reports": {
+    "title": "Reports",
+    "empty": "No reports yet. Run a daily job or generate manually.",
+    "type": "Type",
+    "generatedAt": "Generated",
+    "eventsCount": "Events",
+    "generateManual": "Generate manually",
+    "from": "From",
+    "to": "To",
+    "generate": "Generate",
+    "backToReports": "← Reports",
+    "eventsTable": "Covered Events",
+    "competitor": "Family",
+    "promotion": "Promotion",
+    "eventType": "Event",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "manual": "Manual"
   }
 }

@@ -23,6 +23,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "faraday"
 gem "nokogiri"
+gem "redcarpet"
 gem "playwright-ruby-client"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
