@@ -6,7 +6,7 @@ class MonitoringSource < ApplicationRecord
   enum :source_type, { website: "website", instagram: "instagram" }
 
   validates :url, presence: true, format: {
-    with: /\Ahttps?:\/\/.+/,
+    with: /\Ahttps?:\/\/.+\z/,
     message: "must start with http:// or https://"
   }
 

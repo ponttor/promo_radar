@@ -7,4 +7,4 @@
 # Defaults baked into the gem:
 #   temperature: 0.7  (per-agent override: use `temperature:` in the model DSL)
 #   timeout:     30s  (Base provider default)
-ENV.fetch("OPENROUTER_API_KEY")
+ENV.fetch("OPENROUTER_API_KEY") if Rails.env.production?

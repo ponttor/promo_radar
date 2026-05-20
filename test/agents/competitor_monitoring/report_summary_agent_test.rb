@@ -11,9 +11,9 @@ class CompetitorMonitoring::ReportSummaryAgentTest < ActiveSupport::TestCase
     assert_equal "1.0", CompetitorMonitoring::ReportSummaryAgent::PROMPT_VERSION
   end
 
-  test "system prompt mentions business analyst role" do
+  test "system prompt mentions Slovak language" do
     prompt = CompetitorMonitoring::ReportSummaryAgent.agent_config[:system_prompt]
-    assert_includes prompt, "business analyst"
+    assert_includes prompt, "Slovak"
   end
 
   test "system prompt requests markdown text output" do
