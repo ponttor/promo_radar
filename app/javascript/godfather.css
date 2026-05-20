@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --gf-gold: #C9A84C;
+  --gf-gold-dim: #8B7435;
+  --gf-gold-glow: rgba(201, 168, 76, 0.15);
+  --gf-bg: #0B0910;
+  --gf-sidebar: #080610;
+  --gf-surface: #110E1A;
+  --gf-border: rgba(201, 168, 76, 0.18);
+  --gf-text: #DDD0B8;
+  --gf-text-dim: #8C7E68;
+}
+
+body {
+  background: var(--gf-bg) !important;
+  font-family: 'EB Garamond', Georgia, serif !important;
+}
+
+/* Sidebar */
+.mantine-AppShell-navbar {
+  background: var(--gf-sidebar) !important;
+  border-right: 1px solid var(--gf-border) !important;
+}
+
+/* Main content area */
+.mantine-AppShell-main {
+  background: var(--gf-bg) !important;
+}
+
+/* Nav links */
+.mantine-NavLink-root {
+  border-radius: 2px !important;
+  color: var(--gf-text-dim) !important;
+  font-family: 'EB Garamond', Georgia, serif !important;
+  font-size: 15px !important;
+  letter-spacing: 0.04em !important;
+}
+
+.mantine-NavLink-root:hover {
+  background: var(--gf-gold-glow) !important;
+  color: var(--gf-gold) !important;
+}
+
+.mantine-NavLink-root[data-active="true"] {
+  background: var(--gf-gold-glow) !important;
+  color: var(--gf-gold) !important;
+  border-left: 2px solid var(--gf-gold) !important;
+}
+
+/* Tables */
+.mantine-Table-table {
+  border-color: var(--gf-border) !important;
+}
+
+.mantine-Table-tr {
+  border-bottom: 1px solid var(--gf-border) !important;
+}
+
+.mantine-Table-th {
+  color: var(--gf-text-dim) !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid var(--gf-border) !important;
+}
+
+/* Primary buttons */
+.mantine-Button-root[data-variant="filled"] {
+  background: var(--gf-gold) !important;
+  color: #0B0910 !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 11px !important;
+  letter-spacing: 0.06em !important;
+  font-weight: 600 !important;
+}
+
+.mantine-Button-root[data-variant="filled"]:hover {
+  background: #B8960C !important;
+}
+
+/* Light buttons */
+.mantine-Button-root[data-variant="light"] {
+  background: var(--gf-gold-glow) !important;
+  color: var(--gf-gold) !important;
+  font-family: 'EB Garamond', Georgia, serif !important;
+}
+
+.mantine-Button-root[data-variant="light"][data-color="red"] {
+  background: rgba(180, 60, 60, 0.12) !important;
+  color: #C07070 !important;
+}
+
+/* Badges */
+.mantine-Badge-root {
+  font-family: 'Cinzel', serif !important;
+  font-size: 9px !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Inputs */
+.mantine-TextInput-input,
+.mantine-Select-input {
+  background: var(--gf-surface) !important;
+  border-color: var(--gf-border) !important;
+  color: var(--gf-text) !important;
+  font-family: 'EB Garamond', Georgia, serif !important;
+}
+
+.mantine-TextInput-label,
+.mantine-Select-label {
+  color: var(--gf-text-dim) !important;
+  font-family: 'Cinzel', serif !important;
+  font-size: 11px !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* Anchors */
+a.mantine-Anchor-root {
+  color: var(--gf-gold) !important;
+}
+
+/* Segmented control */
+.mantine-SegmentedControl-root {
+  background: var(--gf-surface) !important;
+  border: 1px solid var(--gf-border) !important;
+}
+
+/* Text */
+.mantine-Text-root {
+  color: var(--gf-text) !important;
+}
+
+/* Titles */
+h1, h2, h3, h4, h5 {
+  font-family: 'Cinzel', serif !important;
+}
+
+/* Paper/cards */
+.mantine-Paper-root {
+  background: var(--gf-surface) !important;
+  border-color: var(--gf-border) !important;
+}

@@ -1,8 +1,8 @@
 {
   "nav": {
-    "competitors": "Competitors",
-    "backToCompetitors": "← Competitors",
-    "promotions": "Promotions"
+    "competitors": "Families",
+    "backToCompetitors": "← Families",
+    "promotions": "Intelligence"
   },
   "common": {
     "name": "Name",
@@ -38,36 +38,36 @@
     "blocked": "Blocked"
   },
   "actions": {
-    "save": "Save",
-    "cancel": "Cancel",
+    "save": "Confirm",
+    "cancel": "Stand down",
     "edit": "Edit",
-    "view": "View",
+    "view": "Review",
     "activate": "Activ.",
     "deactivate": "Deact.",
-    "fetch": "Fetch",
-    "delete": "Delete",
+    "fetch": "Gather intel",
+    "delete": "Remove",
     "add": "Add",
-    "confirmDelete": "Delete {{name}}?"
+    "confirmDelete": "Remove {{name}} from the family?"
   },
   "competitors": {
-    "title": "Competitors",
-    "new": "New Competitor",
-    "edit": "Edit {{name}}",
-    "empty": "No competitors. Add the first one.",
-    "add": "+ Add competitor",
-    "sources": "Sources"
+    "title": "Families",
+    "new": "Add Family",
+    "edit": "{{name}}",
+    "empty": "No families under watch. Add the first one.",
+    "add": "+ Add Family",
+    "sources": "Informants"
   },
   "monitoringSources": {
-    "title": "Sources: {{name}}",
-    "new": "Add source — {{name}}",
-    "edit": "Edit source — {{name}}",
-    "empty": "No sources. Add the first one.",
-    "add": "+ Add source",
-    "sectionTitle": "Sources",
-    "addSource": "+ Add source",
-    "count": "Sources",
-    "snapshots": "Snapshots",
-    "posts": "Posts"
+    "title": "Informants: {{name}}",
+    "new": "Add informant — {{name}}",
+    "edit": "Edit informant — {{name}}",
+    "empty": "No informants. Place the first one.",
+    "add": "+ Place informant",
+    "sectionTitle": "Informants",
+    "addSource": "+ Place informant",
+    "count": "Informants",
+    "snapshots": "Reports",
+    "posts": "Street Reports"
   },
   "sourceSnapshots": {
     "title": "Snapshots: {{name}}",
@@ -75,23 +75,23 @@
     "backToSources": "← Sources"
   },
   "instagramPosts": {
-    "title": "Posts: {{name}}",
-    "empty": "No posts yet.",
-    "backToCompetitor": "← Competitor",
-    "sessionActive": "Session active",
-    "sessionExpired": "Session expired — re-run setup task"
+    "title": "Street reports: {{name}}",
+    "empty": "Nothing from the streets yet.",
+    "backToCompetitor": "← Back to family",
+    "sessionActive": "Operative active",
+    "sessionExpired": "Operative compromised — re-establish contact"
   },
   "promotions": {
-    "title": "Promotions",
-    "empty": "No promotions found.",
-    "competitor": "Competitor",
+    "title": "Intelligence",
+    "empty": "Nothing gathered yet. Send your men.",
+    "competitor": "Family",
     "canonicalTitle": "Title",
     "promoType": "Type",
     "discount": "Discount",
     "promoCode": "Promo Code",
     "lastSeen": "Last seen",
     "firstSeen": "First seen",
-    "filterByCompetitor": "All competitors",
+    "filterByCompetitor": "All families",
     "filterByStatus": "All statuses",
     "filterByType": "All types",
     "backToPromotions": "← Promotions",
