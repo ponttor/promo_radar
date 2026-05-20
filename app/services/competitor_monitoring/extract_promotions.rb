@@ -90,9 +90,12 @@ module CompetitorMonitoring
     end
 
     def collect_llm_candidates
-      text  = @snapshot.visible_text.to_s.slice(0, LLM_TEXT_LIMIT)
-      input = "Competitor: #{@competitor.name}\nURL: #{@snapshot.monitoring_source.url}\n\n#{text}"
+      text = @snapshot.visible_text.to_s
+      return [] if text.length < 100
+
+      input = "Competitor: #{@competitor.name}\nURL: #{@snapshot.monitoring_source.url}\n\n#{text.slice(0, LLM_TEXT_LIMIT)}"
       result = PromotionExtractorAgent.call(input: input)
+      Rails.logger.debug "[AI] #{result.provider}/#{result.model} | input=#{input.length}chars | tokens=#{result.usage&.dig(:total_tokens)}"
       result.parsed&.fetch("promotions", []).to_a.filter_map { |p| llm_promo_to_attrs(p, result) }
     rescue ActiveHarness::Errors::AllModelsFailed => e
       Rails.logger.warn "LLM extraction failed for snapshot #{@snapshot.id}: #{e.message}"

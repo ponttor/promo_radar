@@ -38,4 +38,66 @@ class Admin::CompetitorMonitoring::ReportsControllerTest < ActionDispatch::Integ
     end
     assert_redirected_to admin_competitor_monitoring_report_path(Report.last)
   end
+
+  test "POST regenerate_summary redirects to show when no events" do
+    post regenerate_summary_admin_competitor_monitoring_report_path(@report),
+      headers: INERTIA_HEADERS
+    assert_redirected_to admin_competitor_monitoring_report_path(@report)
+  end
+
+  test "POST regenerate_summary updates scope_json with ai_summary when agent succeeds" do
+    competitor = Competitor.create!(name: "Acme")
+    promotion = Promotion.create!(
+      competitor: competitor, canonical_title: "Welcome Bonus",
+      promo_type: "bonus", status: :active,
+      first_seen_at: 2.days.ago, last_seen_at: Time.current
+    )
+    event = PromotionEvent.create!(
+      promotion: promotion, event_type: :created
+    )
+    ReportItem.create!(report: @report, promotion_event: event, sort_order: 0)
+
+    mock_result = Struct.new(:output, :model, :provider, :usage).new(
+      "Strong welcome bonus detected.", "claude-haiku", :openrouter, { total_tokens: 10 }
+    )
+    agent = CompetitorMonitoring::ReportSummaryAgent
+    original = agent.method(:call)
+    agent.define_singleton_method(:call) { |**| mock_result }
+
+    begin
+      post regenerate_summary_admin_competitor_monitoring_report_path(@report),
+        headers: INERTIA_HEADERS
+      assert_redirected_to admin_competitor_monitoring_report_path(@report)
+      assert_equal "Strong welcome bonus detected.", @report.reload.scope_json["ai_summary"]
+      assert @report.summary_markdown.start_with?("## AI Summary")
+    ensure
+      agent.define_singleton_method(:call, &original)
+    end
+  end
+
+  test "POST regenerate_summary redirects with alert when agent fails" do
+    competitor = Competitor.create!(name: "Acme")
+    promotion = Promotion.create!(
+      competitor: competitor, canonical_title: "Welcome Bonus",
+      promo_type: "bonus", status: :active,
+      first_seen_at: 2.days.ago, last_seen_at: Time.current
+    )
+    event = PromotionEvent.create!(promotion: promotion, event_type: :created)
+    ReportItem.create!(report: @report, promotion_event: event, sort_order: 0)
+
+    agent = CompetitorMonitoring::ReportSummaryAgent
+    original = agent.method(:call)
+    agent.define_singleton_method(:call) do |**|
+      raise ActiveHarness::Errors::AllModelsFailed, "all models failed"
+    end
+
+    begin
+      post regenerate_summary_admin_competitor_monitoring_report_path(@report),
+        headers: INERTIA_HEADERS
+      assert_redirected_to admin_competitor_monitoring_report_path(@report)
+      assert_nil @report.reload.scope_json["ai_summary"]
+    ensure
+      agent.define_singleton_method(:call, &original)
+    end
+  end
 end

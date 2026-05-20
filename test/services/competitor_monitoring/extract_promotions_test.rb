@@ -55,9 +55,9 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
   end
 
   test "returns empty array when no promotions found" do
-    snap = snapshot_with("Welcome to our store. We sell great products.")
-    mock_result = Struct.new(:parsed, :model, :provider).new(
-      { "promotions" => [] }, "mock-model", "mock-provider"
+    snap = snapshot_with("Welcome to our store. We sell great products and amazing things. Join us now for incredible offers and wonderful experiences.")
+    mock_result = Struct.new(:parsed, :model, :provider, :usage).new(
+      { "promotions" => [] }, "mock-model", "mock-provider", { total_tokens: 100 }
     )
     stub_llm_agent(mock_result) do
       candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
@@ -89,9 +89,9 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
   end
 
   test "ignores euro amounts below 100" do
-    snap = snapshot_with("Minimálny vklad 5 €")
-    mock_result = Struct.new(:parsed, :model, :provider).new(
-      { "promotions" => [] }, "mock-model", "mock-provider"
+    snap = snapshot_with("Minimálny vklad 5 € je vyžadovaný pre všetkých hráčov na našej platforme. Toto je minimálna suma na začatie hry.")
+    mock_result = Struct.new(:parsed, :model, :provider, :usage).new(
+      { "promotions" => [] }, "mock-model", "mock-provider", { total_tokens: 100 }
     )
     stub_llm_agent(mock_result) do
       candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
@@ -121,10 +121,11 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
   end
 
   test "llm_only extraction_path when rule-based empty and LLM succeeds" do
-    snap = snapshot_with("Добро пожаловать! Лучшие предложения ждут вас.")
-    mock_result = Struct.new(:parsed, :model, :provider).new(
+    text = "Добро пожаловать! Лучшие предложения ждут вас. Присоединяйтесь к нашему сообществу и получите исключительные бонусы и щедрые награды. Мы предлагаем лучшие условия для всех игроков."
+    snap = snapshot_with(text)
+    mock_result = Struct.new(:parsed, :model, :provider, :usage).new(
       { "promotions" => [ { "title" => "Welcome bonus", "promo_type" => "bonus" } ] },
-      "claude-haiku", :openrouter
+      "claude-haiku", :openrouter, { total_tokens: 150 }
     )
     stub_llm_agent(mock_result) do
       candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
@@ -136,9 +137,10 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
   end
 
   test "empty result when both rule-based and LLM find nothing" do
-    snap = snapshot_with("Добро пожаловать!")
-    mock_result = Struct.new(:parsed, :model, :provider).new(
-      { "promotions" => [] }, "claude-haiku", :openrouter
+    text = "Добро пожаловать! Это просто информационная страница с подробным описанием нашего сервиса и условиями использования. Добро пожаловать к нам сегодня!"
+    snap = snapshot_with(text)
+    mock_result = Struct.new(:parsed, :model, :provider, :usage).new(
+      { "promotions" => [] }, "claude-haiku", :openrouter, { total_tokens: 150 }
     )
     stub_llm_agent(mock_result) do
       candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
@@ -156,10 +158,22 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
   end
 
   test "llm failure handled gracefully returns empty" do
-    snap = snapshot_with("Добро пожаловать!")
+    text = "Добро пожаловать! Это просто информационная страница с подробным описанием нашего сервиса и условиями использования. Добро пожаловать к нам сегодня!"
+    snap = snapshot_with(text)
     stub_llm_agent(-> { raise ActiveHarness::Errors::AllModelsFailed, "all failed" }) do
       candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
       assert_empty candidates
+    end
+  end
+
+  test "returns empty array without calling LLM when visible_text shorter than 100 chars" do
+    short_text = "Hi"
+    snap = snapshot_with(short_text)
+    called = false
+    stub_llm_agent(-> { called = true }) do
+      candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
+      assert_equal [], candidates
+      assert_not called, "LLM should not be called for short text"
     end
   end
 end

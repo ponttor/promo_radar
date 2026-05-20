@@ -1,8 +1,10 @@
-import { Table, Text, Badge, Anchor, Box, Stack } from '@mantine/core'
+import { Alert, Anchor, Badge, Box, Button, Divider, Stack, Table, Text } from '@mantine/core'
+import { IconSparkles } from '@tabler/icons-react'
+import { router } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next'
 import AdminLayout from '../../../components/AdminLayout'
 
-const TYPE_COLORS = { daily: 'blue', weekly: 'violet', manual: 'gold' }
+const TYPE_COLORS  = { daily: 'blue', weekly: 'violet', manual: 'gold' }
 const EVENT_COLORS = { created: 'green', updated: 'yellow', ended: 'red', reappeared: 'teal' }
 const EVENT_EMOJIS = { created: '🆕', updated: '✏️', ended: '🔚', reappeared: '🔄' }
 
@@ -14,9 +16,15 @@ function formatDateTime(str, lang) {
   }).format(new Date(str))
 }
 
+const canRegenerate = (reportType) => reportType === 'daily' || reportType === 'manual'
+
 export default function Show({ report }) {
   const { t, i18n } = useTranslation()
   const lang = i18n.resolvedLanguage
+
+  function handleRegenerate() {
+    router.post(`/admin/competitor_monitoring/reports/${report.id}/regenerate_summary`)
+  }
 
   return (
     <AdminLayout title={`${t(`reports.${report.report_type}`)} — ${formatDateTime(report.generated_at, lang)}`}>
@@ -28,7 +36,49 @@ export default function Show({ report }) {
         {t(`reports.${report.report_type}`)} · {report.events_count} {t('reports.eventsCount').toLowerCase()}
       </Badge>
 
-      {/* Markdown rendered as HTML */}
+      {/* AI Summary */}
+      {report.ai_summary && (
+        <>
+          <Alert
+            icon={<IconSparkles size={16} />}
+            title="AI Summary"
+            color="violet"
+            variant="light"
+            mb="sm"
+          >
+            <Text size="sm" style={{ whiteSpace: 'pre-wrap' }}>{report.ai_summary}</Text>
+          </Alert>
+          {canRegenerate(report.report_type) && (
+            <Button
+              size="xs"
+              variant="subtle"
+              color="violet"
+              leftSection={<IconSparkles size={12} />}
+              onClick={handleRegenerate}
+              mb="xl"
+            >
+              Regenerate AI Summary
+            </Button>
+          )}
+          <Divider mb="xl" />
+        </>
+      )}
+
+      {/* No AI summary yet — show Generate button for eligible types */}
+      {!report.ai_summary && canRegenerate(report.report_type) && (
+        <Button
+          size="xs"
+          variant="light"
+          color="violet"
+          leftSection={<IconSparkles size={12} />}
+          onClick={handleRegenerate}
+          mb="xl"
+        >
+          Generate AI Summary
+        </Button>
+      )}
+
+      {/* Structural report */}
       <Box
         mb="xl"
         style={{

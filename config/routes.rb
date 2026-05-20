@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   namespace :admin do
     namespace :competitor_monitoring do
       resources :promotions, only: [ :index, :show ]
-      resources :reports,    only: [ :index, :show, :create ]
+      resources :reports,    only: [ :index, :show, :create ] do
+        member { post :regenerate_summary }
+      end
       resources :competitors do
         resources :monitoring_sources, only: [] do
           member { post :fetch }
