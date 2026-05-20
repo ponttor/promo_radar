@@ -4,9 +4,7 @@ class InstagramPostTest < ActiveSupport::TestCase
   def setup
     @competitor = Competitor.create!(name: "Acme")
     @source = @competitor.monitoring_sources.create!(
-      name: "Acme IG", url: "https://www.instagram.com/acme/",
-      source_type: :instagram, fetch_strategy: :browser,
-      extractor_type: :hybrid, check_frequency: :daily
+      url: "https://www.instagram.com/acme/", source_type: :instagram
     )
   end
 
@@ -49,9 +47,7 @@ class InstagramPostTest < ActiveSupport::TestCase
 
   test "allows same instagram_id across different sources" do
     other_source = @competitor.monitoring_sources.create!(
-      name: "Other IG", url: "https://www.instagram.com/other/",
-      source_type: :instagram, fetch_strategy: :browser,
-      extractor_type: :hybrid, check_frequency: :daily
+      url: "https://www.instagram.com/other/", source_type: :instagram
     )
     @source.instagram_posts.create!(valid_post_attrs)
     post2 = other_source.instagram_posts.new(valid_post_attrs)

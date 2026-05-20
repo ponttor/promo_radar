@@ -11,6 +11,15 @@ module Admin
         promotions = promotions.where(status: params[:status])               if params[:status].present?
         promotions = promotions.where(promo_type: params[:promo_type])       if params[:promo_type].present?
 
+        if params[:source_id].present?
+          promotions = promotions
+            .joins(promotion_versions: :source_snapshot)
+            .where(source_snapshots: { monitoring_source_id: params[:source_id] })
+            .distinct
+        end
+
+        source_url = MonitoringSource.find_by(id: params[:source_id])&.url
+
         render inertia: "CompetitorMonitoring/Promotions/Index",
                props: {
                  promotions:   promotions.map { |p| serialize_promotion(p) },
@@ -22,7 +31,9 @@ module Admin
                  filters: {
                    competitor_id: params[:competitor_id],
                    status:        params[:status],
-                   promo_type:    params[:promo_type]
+                   promo_type:    params[:promo_type],
+                   source_id:     params[:source_id],
+                   source_url:    source_url
                  }
                }
       end

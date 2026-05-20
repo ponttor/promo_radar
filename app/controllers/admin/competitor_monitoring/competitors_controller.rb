@@ -1,7 +1,7 @@
 module Admin
   module CompetitorMonitoring
     class CompetitorsController < ApplicationController
-      before_action :set_competitor, only: [ :edit, :update ]
+      before_action :set_competitor, only: [ :show, :edit, :update, :destroy ]
 
       def index
         competitors = Competitor.order(:name).map do |c|
@@ -11,9 +11,14 @@ module Admin
                props: { competitors: competitors }
       end
 
+      def show
+        render inertia: "CompetitorMonitoring/Competitors/Show",
+               props: { competitor: competitor_json(@competitor) }
+      end
+
       def new
         render inertia: "CompetitorMonitoring/Competitors/New",
-               props: { competitor: Competitor.new.as_json, errors: {} }
+               props: { competitor: competitor_json(Competitor.new), errors: {} }
       end
 
       def create
@@ -22,14 +27,14 @@ module Admin
           redirect_to admin_competitor_monitoring_competitors_path
         else
           render inertia: "CompetitorMonitoring/Competitors/New",
-                 props: { competitor: @competitor.as_json, errors: @competitor.errors.messages },
+                 props: { competitor: competitor_json(@competitor), errors: @competitor.errors.messages },
                  status: :unprocessable_entity
         end
       end
 
       def edit
         render inertia: "CompetitorMonitoring/Competitors/Edit",
-               props: { competitor: @competitor.as_json, errors: {} }
+               props: { competitor: competitor_json(@competitor), errors: {} }
       end
 
       def update
@@ -37,9 +42,14 @@ module Admin
           redirect_to admin_competitor_monitoring_competitors_path
         else
           render inertia: "CompetitorMonitoring/Competitors/Edit",
-                 props: { competitor: @competitor.as_json, errors: @competitor.errors.messages },
+                 props: { competitor: competitor_json(@competitor), errors: @competitor.errors.messages },
                  status: :unprocessable_entity
         end
+      end
+
+      def destroy
+        @competitor.destroy
+        redirect_to admin_competitor_monitoring_competitors_path
       end
 
       private
@@ -49,7 +59,18 @@ module Admin
       end
 
       def competitor_params
-        params.require(:competitor).permit(:name, :industry, :country, :notes, :active)
+        params.require(:competitor).permit(
+          :name, :active,
+          monitoring_sources_attributes: [ :id, :url, :source_type, :active, :_destroy ]
+        )
+      end
+
+      def competitor_json(competitor)
+        competitor.as_json.merge(
+          "monitoring_sources" => competitor.monitoring_sources.map { |s|
+            s.as_json(only: %i[id url source_type active])
+          }
+        )
       end
     end
   end

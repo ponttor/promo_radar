@@ -1,4 +1,4 @@
-import { Table, Badge, Button, Group, Select, Text } from '@mantine/core'
+import { Table, Badge, Button, Group, Select, Text, Anchor } from '@mantine/core'
 import { router } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next'
 import AdminLayout from '../../../components/AdminLayout'
@@ -79,6 +79,13 @@ export default function Index({ promotions, competitors, enum_options, filters }
 
   return (
     <AdminLayout title={t('promotions.title')}>
+      {filters.source_url && (
+        <Group mb="sm" gap="xs">
+          <Text size="sm" c="dimmed">Source:</Text>
+          <Text size="sm" fw={500}>{filters.source_url}</Text>
+          <Anchor size="sm" href="/admin/competitor_monitoring/promotions">✕ clear</Anchor>
+        </Group>
+      )}
       <Group mb="md" gap="sm">
         <Select
           data={competitorOptions}

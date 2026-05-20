@@ -43,12 +43,16 @@
     "edit": "Edit",
     "view": "View",
     "activate": "Activ.",
-    "deactivate": "Deact."
+    "deactivate": "Deact.",
+    "fetch": "Fetch",
+    "delete": "Delete",
+    "add": "Add",
+    "confirmDelete": "Delete {{name}}?"
   },
   "competitors": {
     "title": "Competitors",
-    "new": "Add competitor",
-    "edit": "Edit: {{name}}",
+    "new": "New Competitor",
+    "edit": "Edit {{name}}",
     "empty": "No competitors. Add the first one.",
     "add": "+ Add competitor",
     "sources": "Sources"
@@ -59,10 +63,9 @@
     "edit": "Edit source — {{name}}",
     "empty": "No sources. Add the first one.",
     "add": "+ Add source",
-    "sourceType": "Source type",
-    "fetchStrategy": "Fetch strategy",
-    "extractorType": "Extractor",
-    "checkFrequency": "Check frequency",
+    "sectionTitle": "Sources",
+    "addSource": "+ Add source",
+    "count": "Sources",
     "snapshots": "Snapshots",
     "posts": "Posts"
   },
@@ -74,7 +77,7 @@
   "instagramPosts": {
     "title": "Posts: {{name}}",
     "empty": "No posts yet.",
-    "backToSources": "← Sources",
+    "backToCompetitor": "← Competitor",
     "sessionActive": "Session active",
     "sessionExpired": "Session expired — re-run setup task"
   },

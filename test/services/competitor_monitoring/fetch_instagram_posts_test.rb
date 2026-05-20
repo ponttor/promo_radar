@@ -16,9 +16,8 @@ class CompetitorMonitoring::FetchInstagramPostsTest < ActiveSupport::TestCase
   def setup
     @competitor = Competitor.create!(name: "Acme")
     @source = @competitor.monitoring_sources.create!(
-      name: "Acme IG", url: "https://www.instagram.com/acme/",
-      source_type: :instagram, fetch_strategy: :browser,
-      extractor_type: :hybrid, check_frequency: :daily
+      url: "https://www.instagram.com/acme/",
+      source_type: :instagram
     )
     @credential = InstagramCredential.create!(
       username: "monitor_bot", session_json: '{"cookies":[],"origins":[]}', active: true

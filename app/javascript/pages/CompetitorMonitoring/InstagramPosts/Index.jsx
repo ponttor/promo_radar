@@ -1,6 +1,6 @@
-import { Table, Badge, Button, Group, Text, Anchor, Alert, Notification } from '@mantine/core'
+import { Table, Badge, Text, Anchor, Alert, Notification, Group } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
-import { useForm, usePage } from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import AdminLayout from '../../../components/AdminLayout'
 
 function formatDate(dateStr, lang) {
@@ -19,14 +19,10 @@ function postTypeColor(type) {
 export default function Index({ competitor, monitoring_source, posts, credential_active }) {
   const { t, i18n } = useTranslation()
   const { flash } = usePage().props
-  const fetchForm = useForm({})
-  const fetchUrl = `/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources/${monitoring_source.id}/instagram_posts/fetch`
 
   const rows = posts.map((p) => (
     <Table.Tr key={p.id}>
-      <Table.Td>
-        <Text size="sm">{formatDate(p.posted_at, i18n.resolvedLanguage)}</Text>
-      </Table.Td>
+      <Table.Td><Text size="sm">{formatDate(p.posted_at, i18n.resolvedLanguage)}</Text></Table.Td>
       <Table.Td>
         <Badge color={postTypeColor(p.post_type)} variant="light">{p.post_type || '—'}</Badge>
       </Table.Td>
@@ -42,28 +38,18 @@ export default function Index({ competitor, monitoring_source, posts, credential
   ))
 
   return (
-    <AdminLayout title={t('instagramPosts.title', { name: monitoring_source.name })}>
+    <AdminLayout title={t('instagramPosts.title', { name: monitoring_source.url })}>
       <Group mb="md" justify="space-between">
         <Anchor
-          href={`/admin/competitor_monitoring/competitors/${competitor.id}/monitoring_sources`}
+          href={`/admin/competitor_monitoring/competitors/${competitor.id}`}
           size="sm">
-          {t('instagramPosts.backToSources')}
+          {t('instagramPosts.backToCompetitor')}
         </Anchor>
-        <Group gap="xs">
-          <Badge color={credential_active ? 'green' : 'red'} variant="light" size="sm">
-            {credential_active
-              ? t('instagramPosts.sessionActive')
-              : t('instagramPosts.sessionExpired')}
-          </Badge>
-          <Button
-            size="xs"
-            variant="light"
-            loading={fetchForm.processing}
-            onClick={() => fetchForm.post(fetchUrl)}
-          >
-            Fetch now
-          </Button>
-        </Group>
+        <Badge color={credential_active ? 'green' : 'red'} variant="light" size="sm">
+          {credential_active
+            ? t('instagramPosts.sessionActive')
+            : t('instagramPosts.sessionExpired')}
+        </Badge>
       </Group>
 
       {flash?.notice && (
@@ -74,9 +60,7 @@ export default function Index({ competitor, monitoring_source, posts, credential
       )}
 
       {!credential_active && (
-        <Alert color="red" mb="md">
-          {t('instagramPosts.sessionExpired')}
-        </Alert>
+        <Alert color="red" mb="md">{t('instagramPosts.sessionExpired')}</Alert>
       )}
 
       {posts.length === 0 ? (

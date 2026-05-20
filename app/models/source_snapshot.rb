@@ -1,5 +1,7 @@
 class SourceSnapshot < ApplicationRecord
   belongs_to :monitoring_source
+  has_many :promotion_candidates, dependent: :destroy
+  has_many :promotion_versions, dependent: :destroy
 
   enum :status, { success: "success", failed: "failed", blocked: "blocked" }
 

@@ -2,11 +2,7 @@ require "test_helper"
 
 class SourceSnapshotTest < ActiveSupport::TestCase
   def valid_source_attrs
-    {
-      name: "Main site", url: "https://example.com",
-      source_type: :website, fetch_strategy: :http,
-      extractor_type: :hybrid, check_frequency: :daily
-    }
+    { url: "https://example.com", source_type: :website }
   end
 
   setup do

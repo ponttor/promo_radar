@@ -4,9 +4,7 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
   setup do
     @competitor = Competitor.create!(name: "Acme")
     @source = @competitor.monitoring_sources.create!(
-      name: "Main", url: "https://example.com",
-      source_type: :website, fetch_strategy: :http,
-      extractor_type: :hybrid, check_frequency: :daily
+      url: "https://example.com", source_type: :website
     )
   end
 
@@ -53,5 +51,43 @@ class CompetitorMonitoring::ExtractPromotionsTest < ActiveSupport::TestCase
     snap = snapshot_with("Save 10% off, use code: SAVE10")
     candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
     assert_equal "SAVE10", candidates.first.promo_code
+  end
+
+  test "extracts free spins candidate" do
+    snap = snapshot_with("50 000 FREE SPINOV stredajšie akcie")
+    candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
+    assert_equal 1, candidates.size
+    assert_equal "bonus", candidates.first.promo_type
+    assert_equal 50000.0, candidates.first.discount_value.to_f
+    assert_equal "50000 free spins", candidates.first.title
+  end
+
+  test "extracts euro bonus amount candidate" do
+    snap = snapshot_with("VSTUPNÝ BONUS až 10 000 € k vášmu vkladu!")
+    candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
+    euro = candidates.find { |c| c.discount_value.to_f == 10000.0 }
+    assert euro, "expected a 10000€ candidate"
+    assert_equal "bonus", euro.promo_type
+  end
+
+  test "ignores euro amounts below 100" do
+    snap = snapshot_with("Minimálny vklad 5 €")
+    candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
+    assert_equal [], candidates
+  end
+
+  test "extracts named bonus candidate" do
+    snap = snapshot_with("NARODENINOVÝ BONUS MonacoBet oslavuje s tebou!")
+    candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
+    assert_equal 1, candidates.size
+    assert_equal "bonus", candidates.first.promo_type
+    assert_equal "narodeninový bonus", candidates.first.title
+  end
+
+  test "extracts welcome bonus" do
+    snap = snapshot_with("Welcome Bonus up to 500€")
+    candidates = CompetitorMonitoring::ExtractPromotions.call(source_snapshot: snap)
+    named = candidates.find { |c| c.title == "welcome bonus" }
+    assert named, "expected a welcome bonus candidate"
   end
 end

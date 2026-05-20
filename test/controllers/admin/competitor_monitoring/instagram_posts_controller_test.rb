@@ -6,9 +6,8 @@ class Admin::CompetitorMonitoring::InstagramPostsControllerTest < ActionDispatch
   setup do
     @competitor = Competitor.create!(name: "Acme")
     @source = @competitor.monitoring_sources.create!(
-      name: "Acme IG", url: "https://www.instagram.com/acme/",
-      source_type: :instagram, fetch_strategy: :browser,
-      extractor_type: :hybrid, check_frequency: :daily
+      url: "https://www.instagram.com/acme/",
+      source_type: :instagram
     )
     @post = @source.instagram_posts.create!(
       instagram_id: "post001",

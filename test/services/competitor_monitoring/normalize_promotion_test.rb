@@ -4,9 +4,7 @@ class CompetitorMonitoring::NormalizePromotionTest < ActiveSupport::TestCase
   setup do
     @competitor = Competitor.create!(name: "Acme")
     @source = @competitor.monitoring_sources.create!(
-      name: "Main", url: "https://example.com",
-      source_type: :website, fetch_strategy: :http,
-      extractor_type: :hybrid, check_frequency: :daily
+      url: "https://example.com", source_type: :website
     )
     @snapshot = @source.source_snapshots.create!(
       fetched_at: Time.current, status: :success,
