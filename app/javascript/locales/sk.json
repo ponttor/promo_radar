@@ -1,10 +1,12 @@
 {
   "nav": {
     "competitors": "Konkurenti",
-    "backToCompetitors": "← Konkurenti"
+    "backToCompetitors": "← Konkurenti",
+    "promotions": "Akcie"
   },
   "common": {
     "name": "Názov",
+    "date": "Dátum",
     "url": "URL",
     "industry": "Odvetvie",
     "country": "Krajina",
@@ -75,5 +77,27 @@
     "backToSources": "← Zdroje",
     "sessionActive": "Relácia aktívna",
     "sessionExpired": "Relácia vypršala — spustite setup task znovu"
+  },
+  "promotions": {
+    "title": "Akcie",
+    "empty": "Žiadne akcie.",
+    "competitor": "Konkurent",
+    "canonicalTitle": "Názov",
+    "promoType": "Typ",
+    "discount": "Zľava",
+    "promoCode": "Promo kód",
+    "lastSeen": "Naposledy videné",
+    "firstSeen": "Prvýkrát videné",
+    "filterByCompetitor": "Všetci konkurenti",
+    "filterByStatus": "Všetky stavy",
+    "filterByType": "Všetky typy",
+    "backToPromotions": "← Akcie",
+    "versions": "Verzie",
+    "events": "Udalosti",
+    "noVersions": "Žiadne verzie.",
+    "noEvents": "Žiadne udalosti.",
+    "changedFields": "Zmenené polia",
+    "from": "Z",
+    "to": "Na"
   }
 }

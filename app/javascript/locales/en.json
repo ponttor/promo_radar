@@ -1,10 +1,12 @@
 {
   "nav": {
     "competitors": "Competitors",
-    "backToCompetitors": "← Competitors"
+    "backToCompetitors": "← Competitors",
+    "promotions": "Promotions"
   },
   "common": {
     "name": "Name",
+    "date": "Date",
     "url": "URL",
     "industry": "Industry",
     "country": "Country",
@@ -75,5 +77,27 @@
     "backToSources": "← Sources",
     "sessionActive": "Session active",
     "sessionExpired": "Session expired — re-run setup task"
+  },
+  "promotions": {
+    "title": "Promotions",
+    "empty": "No promotions found.",
+    "competitor": "Competitor",
+    "canonicalTitle": "Title",
+    "promoType": "Type",
+    "discount": "Discount",
+    "promoCode": "Promo Code",
+    "lastSeen": "Last seen",
+    "firstSeen": "First seen",
+    "filterByCompetitor": "All competitors",
+    "filterByStatus": "All statuses",
+    "filterByType": "All types",
+    "backToPromotions": "← Promotions",
+    "versions": "Versions",
+    "events": "Events",
+    "noVersions": "No versions recorded.",
+    "noEvents": "No events recorded.",
+    "changedFields": "Changed fields",
+    "from": "From",
+    "to": "To"
   }
 }

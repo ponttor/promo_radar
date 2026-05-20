@@ -1,7 +1,7 @@
 module Admin
   module CompetitorMonitoring
     class CompetitorsController < ApplicationController
-      before_action :set_competitor, only: [:edit, :update]
+      before_action :set_competitor, only: [ :edit, :update ]
 
       def index
         competitors = Competitor.order(:name).map do |c|

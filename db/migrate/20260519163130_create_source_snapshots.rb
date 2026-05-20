@@ -15,7 +15,7 @@ class CreateSourceSnapshots < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :source_snapshots, [:monitoring_source_id, :fetched_at]
+    add_index :source_snapshots, [ :monitoring_source_id, :fetched_at ]
     add_index :source_snapshots, :content_hash
   end
 end

@@ -16,7 +16,7 @@ class InstagramPostTest < ActiveSupport::TestCase
       posted_at: 1.day.ago,
       post_type: "photo",
       caption: "Big sale! #promo #casino",
-      hashtags: ["promo", "casino"],
+      hashtags: [ "promo", "casino" ],
       likes_count: 100,
       comments_count: 5,
       media_url: "https://cdn.instagram.com/image.jpg",
@@ -61,7 +61,7 @@ class InstagramPostTest < ActiveSupport::TestCase
   test "recent scope orders by posted_at desc" do
     p1 = @source.instagram_posts.create!(valid_post_attrs(posted_at: 2.days.ago, instagram_id: "id1"))
     p2 = @source.instagram_posts.create!(valid_post_attrs(posted_at: 1.hour.ago, instagram_id: "id2"))
-    assert_equal [p2, p1], @source.instagram_posts.recent.to_a
+    assert_equal [ p2, p1 ], @source.instagram_posts.recent.to_a
   end
 
   test "belongs_to monitoring_source" do

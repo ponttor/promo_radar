@@ -48,7 +48,7 @@ module CompetitorMonitoring
       15.times do
         links = page.eval_on_selector_all(
           POST_SELECTOR,
-          'els => [...new Set(els.map(el => el.href))]'
+          "els => [...new Set(els.map(el => el.href))]"
         )
         seen.merge(links)
         break if seen.size == prev

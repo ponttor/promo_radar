@@ -15,7 +15,7 @@ class CreateInstagramPosts < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :instagram_posts, [:monitoring_source_id, :instagram_id], unique: true
-    add_index :instagram_posts, [:monitoring_source_id, :posted_at]
+    add_index :instagram_posts, [ :monitoring_source_id, :instagram_id ], unique: true
+    add_index :instagram_posts, [ :monitoring_source_id, :posted_at ]
   end
 end

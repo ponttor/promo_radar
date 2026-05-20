@@ -18,6 +18,12 @@ export default function AdminLayout({ children, title }) {
               href="/admin/competitor_monitoring/competitors"
               active={url.startsWith('/admin/competitor_monitoring/competitors')}
             />
+            <NavLink
+              label={t('nav.promotions')}
+              component={Link}
+              href="/admin/competitor_monitoring/promotions"
+              active={url.startsWith('/admin/competitor_monitoring/promotions')}
+            />
           </div>
           <SegmentedControl
             value={i18n.resolvedLanguage || 'en'}

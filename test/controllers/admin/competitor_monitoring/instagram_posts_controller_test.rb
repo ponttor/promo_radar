@@ -15,7 +15,7 @@ class Admin::CompetitorMonitoring::InstagramPostsControllerTest < ActionDispatch
       posted_at:    1.day.ago,
       post_type:    "photo",
       caption:      "Big promotion! #promo",
-      hashtags:     ["promo"],
+      hashtags:     [ "promo" ],
       likes_count:  100,
       comments_count: 5,
       permalink:    "https://www.instagram.com/p/post001/",

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_19_174453) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_19_194928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,79 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_19_174453) do
     t.index ["url"], name: "index_monitoring_sources_on_url"
   end
 
+  create_table "promotion_candidates", force: :cascade do |t|
+    t.bigint "source_snapshot_id", null: false
+    t.bigint "competitor_id", null: false
+    t.bigint "promotion_id"
+    t.string "title"
+    t.text "description"
+    t.string "promo_type"
+    t.decimal "discount_value", precision: 10, scale: 2
+    t.string "discount_unit"
+    t.string "promo_code"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text "terms_text"
+    t.string "landing_url"
+    t.jsonb "raw_extraction_json"
+    t.decimal "confidence", precision: 5, scale: 2
+    t.string "fingerprint"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competitor_id", "fingerprint"], name: "index_promotion_candidates_on_competitor_id_and_fingerprint"
+    t.index ["competitor_id"], name: "index_promotion_candidates_on_competitor_id"
+    t.index ["fingerprint"], name: "index_promotion_candidates_on_fingerprint"
+    t.index ["promotion_id"], name: "index_promotion_candidates_on_promotion_id"
+    t.index ["source_snapshot_id"], name: "index_promotion_candidates_on_source_snapshot_id"
+  end
+
+  create_table "promotion_events", force: :cascade do |t|
+    t.bigint "promotion_id", null: false
+    t.bigint "source_snapshot_id"
+    t.string "event_type", null: false
+    t.jsonb "details_json"
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_promotion_events_on_created_at"
+    t.index ["promotion_id", "event_type"], name: "index_promotion_events_on_promotion_id_and_event_type"
+    t.index ["promotion_id"], name: "index_promotion_events_on_promotion_id"
+    t.index ["source_snapshot_id"], name: "index_promotion_events_on_source_snapshot_id"
+  end
+
+  create_table "promotion_versions", force: :cascade do |t|
+    t.bigint "promotion_id", null: false
+    t.bigint "source_snapshot_id", null: false
+    t.string "title"
+    t.text "description"
+    t.decimal "discount_value", precision: 10, scale: 2
+    t.string "discount_unit"
+    t.string "promo_code"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text "terms_text"
+    t.string "landing_url"
+    t.jsonb "change_summary_json"
+    t.string "version_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["promotion_id"], name: "index_promotion_versions_on_promotion_id"
+    t.index ["source_snapshot_id"], name: "index_promotion_versions_on_source_snapshot_id"
+    t.index ["version_hash"], name: "index_promotion_versions_on_version_hash"
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.bigint "competitor_id", null: false
+    t.string "canonical_title"
+    t.string "promo_type"
+    t.string "status", default: "unknown", null: false
+    t.datetime "first_seen_at"
+    t.datetime "last_seen_at"
+    t.bigint "current_version_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competitor_id"], name: "index_promotions_on_competitor_id"
+    t.index ["current_version_id"], name: "index_promotions_on_current_version_id"
+  end
+
   create_table "source_snapshots", force: :cascade do |t|
     t.bigint "monitoring_source_id", null: false
     t.datetime "fetched_at", null: false
@@ -90,5 +163,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_19_174453) do
 
   add_foreign_key "instagram_posts", "monitoring_sources"
   add_foreign_key "monitoring_sources", "competitors"
+  add_foreign_key "promotion_candidates", "competitors"
+  add_foreign_key "promotion_candidates", "promotions"
+  add_foreign_key "promotion_candidates", "source_snapshots"
+  add_foreign_key "promotion_events", "promotions"
+  add_foreign_key "promotion_events", "source_snapshots"
+  add_foreign_key "promotion_versions", "promotions"
+  add_foreign_key "promotion_versions", "source_snapshots"
+  add_foreign_key "promotions", "competitors"
+  add_foreign_key "promotions", "promotion_versions", column: "current_version_id"
   add_foreign_key "source_snapshots", "monitoring_sources"
 end

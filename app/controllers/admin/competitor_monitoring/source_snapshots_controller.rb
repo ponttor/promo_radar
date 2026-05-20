@@ -27,7 +27,7 @@ module Admin
                props: {
                  competitor:        @competitor.as_json,
                  monitoring_source: @monitoring_source.as_json,
-                 snapshot:          snapshot.as_json(except: [:raw_html])
+                 snapshot:          snapshot.as_json(except: [ :raw_html ])
                }
       end
 

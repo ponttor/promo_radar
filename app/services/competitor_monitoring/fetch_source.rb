@@ -73,7 +73,7 @@ module CompetitorMonitoring
     end
 
     def http_status_to_status(code)
-      return :blocked if [403, 429].include?(code)
+      return :blocked if [ 403, 429 ].include?(code)
       return :failed  if code >= 400
       :success
     end

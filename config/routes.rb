@@ -18,10 +18,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     namespace :competitor_monitoring do
+      resources :promotions, only: [ :index, :show ]
       resources :competitors do
         resources :monitoring_sources do
-          resources :source_snapshots, only: [:index, :show]
-          resources :instagram_posts,  only: [:index] do
+          resources :source_snapshots, only: [ :index, :show ]
+          resources :instagram_posts,  only: [ :index ] do
               collection do
                 post :fetch
               end

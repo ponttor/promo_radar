@@ -2,7 +2,7 @@ module Admin
   module CompetitorMonitoring
     class MonitoringSourcesController < ApplicationController
       before_action :set_competitor
-      before_action :set_source, only: [:edit, :update]
+      before_action :set_source, only: [ :edit, :update ]
 
       def index
         render inertia: "CompetitorMonitoring/MonitoringSources/Index",

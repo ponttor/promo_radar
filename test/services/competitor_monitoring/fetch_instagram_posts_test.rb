@@ -39,14 +39,14 @@ class CompetitorMonitoring::FetchInstagramPostsTest < ActiveSupport::TestCase
   end
 
   test "creates instagram_posts for new posts" do
-    scraper = MockScraper.new(posts: [sample_post_data])
+    scraper = MockScraper.new(posts: [ sample_post_data ])
     assert_difference "@source.instagram_posts.count", 1 do
       CompetitorMonitoring::FetchInstagramPosts.call(monitoring_source: @source, scraper: scraper)
     end
   end
 
   test "extracts hashtags from caption" do
-    scraper = MockScraper.new(posts: [sample_post_data(caption: "Big #promo on #slots today!")])
+    scraper = MockScraper.new(posts: [ sample_post_data(caption: "Big #promo on #slots today!") ])
     CompetitorMonitoring::FetchInstagramPosts.call(monitoring_source: @source, scraper: scraper)
     post = @source.instagram_posts.last
     assert_includes post.hashtags, "promo"
@@ -58,14 +58,14 @@ class CompetitorMonitoring::FetchInstagramPostsTest < ActiveSupport::TestCase
       instagram_id: "post001", fetched_at: Time.current,
       posted_at: 1.day.ago, post_type: "photo", caption: "old"
     )
-    scraper = MockScraper.new(posts: [sample_post_data])
+    scraper = MockScraper.new(posts: [ sample_post_data ])
     assert_no_difference "@source.instagram_posts.count" do
       CompetitorMonitoring::FetchInstagramPosts.call(monitoring_source: @source, scraper: scraper)
     end
   end
 
   test "returns array of created posts" do
-    scraper = MockScraper.new(posts: [sample_post_data])
+    scraper = MockScraper.new(posts: [ sample_post_data ])
     result = CompetitorMonitoring::FetchInstagramPosts.call(monitoring_source: @source, scraper: scraper)
     assert_equal 1, result.size
     assert_equal "post001", result.first.instagram_id
